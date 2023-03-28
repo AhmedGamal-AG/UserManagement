@@ -1,0 +1,105 @@
+﻿
+@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/mycss.css" rel="stylesheet" />
+    <environment include="Development">
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    </environment>
+ 
+    <environment include="Staging,Production">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css" 
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              asp-suppress-fallback-integrity="true"
+              />
+
+
+    </environment>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-light  bg-dark navbar-dark">
+            <a class="navbar-brand" asp-action="index" asp-controller="home">
+                <img src="~/Images/users.png" height="30" width="30" />
+            </a>
+            <button type="button" class="navbar-toggler " data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class=" collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a asp-controller="home" asp-action="index" class="nav-link">List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="home" asp-action="create" class="nav-link">Create</a>
+                    </li>
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    { <li class="nav-item dropdown">
+                        <a class="dropdown-toggle text-white nav-link" data-bs-toggle="dropdown">
+                            Manage
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li >
+                                <a asp-controller="Adminstration" asp-action="ListUsers" class="dropdown-item"> Users</a>
+                            </li>
+                            <li >
+                                <a asp-controller="Adminstration" asp-action="ListRoles" class="dropdown-item"> Roles</a>
+                            </li>
+                        </ul>
+                      
+                       
+</li>
+                    }
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <form method="post" asp-action="logout" asp-controller="account">
+                                <button type="submit" class="nav-link btn btn-link">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+
+                        </li>
+                    }
+                    else
+
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="login" class="nav-link">Login</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+
+        </nav>
+
+    </div>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

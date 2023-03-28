@@ -1,0 +1,35 @@
+﻿@model FullCoreProject.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+    <h4>Employee</h4>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <img src="~/Images/@Model.PhotoPath" class="card-img-top" asp-append-version="true" />
+                <div class="card-body text-center ">
+                    <h4 class="card-title">Name:  @Model.Name</h4>
+                    <h6 class="card-title">Email: @Model.Email</h6>
+                    <h6 class="card-title">Dept:  @Model.Department</h6>
+                </div>
+                <div class="card-footer text-center btn-group-sm">
+                   
+                    <a asp-controller="home" asp-action="index" class="btn btn-primary m-sm-2 m-md-0">Back</a>
+                    <a asp-controller="home" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary m-sm-2 m-md-0">Edit</a>
+                    <a href="#" class="btn btn-danger  m-sm-2 m-md-0">Delete</a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

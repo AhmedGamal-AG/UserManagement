@@ -1,0 +1,38 @@
+﻿@model UserClaimsViewModel
+@{
+    var userId = ViewBag.userId;
+}
+
+<h1>ManageUserRoles</h1>
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            Add Or Remove Roles For User
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Claims.Count(); i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model.Claims[i].claimType" />
+                    
+                    <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input" />
+                    <label asp-for="@Model.Claims[i].IsSelected" class="form-check-label">@Model.Claims[i].claimType</label>
+                </div>
+            }
+        </div>
+
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary" />
+            <a asp-action="EditUser" asp-route-id="@userId"> Cancel </a>
+        </div>
+
+    </div>
+
+</form>
+@{
+    ViewData["Title"] = "ManageUserClaims";
+}
+
+<h1>ManageUserClaims</h1>
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Employee>
+
+@{
+     ViewBag.Title= "Details";
+     //Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<h1>Employees</h1>
+
+<div class="row">
+
+
+
+
+    @foreach (var item in Model)
+    {
+
+        var imgfile = item.PhotoPath ?? "noimage.jpg";
+    <div class="col-sm-4 mb-2">
+        <div class="card">
+            <img src="~/Images/@imgfile" class="card-img-top imageThumbnail" asp-append-version="true" />
+            <div class="card-body text-center ">
+                <h4 class="card-title">@item.Name</h4>
+            </div>
+            <div class="card-footer text-center btn-group-sm">
+                <a asp-controller="home" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary m-sm-2 m-md-0">View</a>
+                <a asp-action="Edit" asp-controller="home" asp-route-id="@item.Id" class="btn btn-primary m-sm-2 m-md-0">Edit</a>
+                <a href="#" class="btn btn-danger  m-sm-2 m-md-0">Delete</a>
+            </div>
+
+
+        </div>
+    </div>
+        
+    }
+    </div>
+
+
+    @section Scripts {
+        <script src="~/js/CustomScript.js"></script>
+    }
